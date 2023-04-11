@@ -4,7 +4,7 @@ using PointOfSaleTerminal;
 namespace PointOfSaleTest;
 
 public class Tests {
-    private InMemoryPricing _pricing;
+    private InMemoryPricing _pricing = new();
     [SetUp]
     public void Setup() {
         _pricing = new InMemoryPricing();
@@ -42,12 +42,20 @@ public class Tests {
         var terminal = new Terminal(_pricing);
         terminal.ScanProduct("Missing Product");
         Assert.Throws<InvalidOperationException>(() => terminal.CalculateTotal());
+    }
 
+    [Test]
+    public void TestReset() {
+        var terminal = new Terminal(_pricing);
+        terminal.ScanProduct("A");
+        terminal.Reset();
+        terminal.ScanProduct("B");
+        Assert.That(terminal.CalculateTotal(), Is.EqualTo(4.25m));
     }
 
     private void ScanTestString(Terminal terminal, string products) {
         foreach (char c in products) {
             terminal.ScanProduct(c.ToString());
-        }   
+        }
     }
 }

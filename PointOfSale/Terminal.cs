@@ -18,7 +18,11 @@ public class Terminal {
     public decimal CalculateTotal() {
         return _productsScanned.Select(pair => GetPriceAtQuantity(pair.Key, pair.Value)).Sum();
     }
-    
+
+    public void Reset() {
+        _productsScanned.Clear();
+    }
+
     public decimal GetPriceAtQuantity(string product, int quantity) {
         VolumePrice? volume = _pricing.GetVolumePrice(product);
         decimal unitPrice = _pricing.GetUnitPrice(product);

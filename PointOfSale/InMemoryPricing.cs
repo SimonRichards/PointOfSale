@@ -1,4 +1,4 @@
-﻿namespace PointOfSaleTerminal; 
+﻿namespace PointOfSaleTerminal;
 
 public class InMemoryPricing : IPricing {
 
@@ -19,7 +19,7 @@ public class InMemoryPricing : IPricing {
         }
         return unitPrice;
     }
-    
+
     public VolumePrice? GetVolumePrice(string product) {
         return _volumePrice.TryGetValue(product, out var volumePrice) ? volumePrice : null;
     }
